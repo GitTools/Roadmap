@@ -74,16 +74,16 @@ This basically means that GitTools.exe needs to either (or both):
 2. Expose a config mechanism. Invoke GitTools.exe passing an argument specifying a config file to use. You could then have different config files per build configuration. GitTools.exe would then interpret the config file, and decide what needs to be run.
 
 Example 'Release.config'
-'''
+```
 UseSemVer: true
 CreateReleaseNotes: { File: ReleaseNotes.md, IssueTracker: Jira }
 CreateRelease: { DescriptionFile: ReleaseNotes.md, Platform: GitHub, Artifacts: Installer.msi, NuGetPackage.nupkg, Status: Pre-Release }
-'''
+```
 
 Example 'Publish.config'
-'''
+```
 UpdateRelease: { Platform: GitHub, Tag: "%some build variable here%", Status: Published }
-'''
+```
 
 Running GitTools.exe -Release would run against the first config file, which would executr GitVersion, and Release notes funcitonality - and would also Create a release on GitHub (assuming the GitHub plugin was available at runtime).
 Running GitTools.exe -Publish would run against the second config file, and simply update the existing release on GitHub that has the specified tag.
