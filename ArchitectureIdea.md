@@ -112,4 +112,5 @@ Unclear which (if any) of the following tools belong in the command line -
 Different Plugins (Issue trackers etc) have different arguments. 
 A mechanism would be needed to surface plugin specific command line arguments / options via GitTools.exe.
 For example, if a valid MsExcelIssueTracker plugin dll was dropped in the bin directory, GitTools.exe ? should be able to list the arguments required by that plugin for example -MsExcelFile "some file.xls"
+Perhaps worth looking at something like this: https://github.com/TypecastException/ConsoleApplicationBase
 
