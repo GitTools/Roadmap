@@ -31,8 +31,18 @@ Another really common workflow for people which I have seen while building GitVe
 ### Particular workflow
 Particular have invested a lot of time to initially create some of these tools which the community have taken and built on
 
-### Chocolatey workflow
-Chocolatey has been a long time user and contributor to GitVersion, picking up early builds and giving invaluable feedback
+### ChocolateyGUI workflow
+ChocolateyGUI has been a long time user, and contributor, to GitVersion, picking up early builds and giving invaluable feedback
+
+The current workflow looks something like this:
+
+1. GitFlow is used as the branching strategy
+2. GitVersion is used to calculate Semantic Version on each build
+3. When a merge into master branch occurs (i.e. product is ready to ship a release, otherwise why are you checking into master branch), the generated semantic version number is passed to GitHubReleaseManager, which creates a draft release on GitHub containing all the closed issues for the associated milestone.  (At this point, it is assumed that a milestone exists in GitHub which matches the generated version number, and it has been kept up to date with all issues have been worked in this release)
+4. Draft release is then manually inspected, and if everything is good, the Draft is published, which tags the repo with the version number, which then triggers another build
+5. This time GitHubReleaseManager exports the generated Release Notes from GitHub and bundles into Application, also it closes the associated Milestone in GitHub
+
+Full details of this process is documented [here](http://ghrm.readme.io/v0.1.0/docs/example-workflow)
 
 
 ## Short term plan (implementation specific)
