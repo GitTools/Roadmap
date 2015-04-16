@@ -11,21 +11,21 @@ This really is only the versioning/release notes part and how the release is orc
 ### Jakes open source workflow/Continuous delivery mode
 Here is how I imagine it working in my ideal world.
 
-1) GitVersion constantly calculating the next version, so as soon as I tag a release the next CI build has it's version bumped
-2) Milestones on github are optional, can be used to group things which *must* be fixed for the next release
-3) Have a create release notes build, it is triggered manually and is a pre-requisite for the release build
-4) Can trigger at any time, it will generate release notes and create a draft GitHub release with all the closed issue/pull requests (can pass labels which will be filtered)
-5) The draft release can be edited manually, comments added etc
-6) Run the release build, it will take the artifacts build by the CI build, run the release notes build again (to include anything closed since last run). This build will push to NuGet/Chocolatey/Whatever and Tag the release (which will cause the draft to be published. As well as anything else the release needs to do. Optionally include binaries in the GitHub release
+1. GitVersion constantly calculating the next version, so as soon as I tag a release the next CI build has it's version bumped
+2. Milestones on github are optional, can be used to group things which *must* be fixed for the next release
+3. Have a create release notes build, it is triggered manually and is a pre-requisite for the release build
+4. Can trigger at any time, it will generate release notes and create a draft GitHub release with all the closed issue/pull requests (can pass labels which will be filtered)
+5. The draft release can be edited manually, comments added etc
+6. Run the release build, it will take the artifacts build by the CI build, run the release notes build again (to include anything closed since last run). This build will push to NuGet/Chocolatey/Whatever and Tag the release (which will cause the draft to be published. As well as anything else the release needs to do. Optionally include binaries in the GitHub release
 
 I really want one tool for calculating version, then one for managing my releasenotes/release process?
 
 ### Octopus Deploy workflow
 Another really common workflow for people which I have seen while building GitVersion is the use of Octopus deploy
 
-1) GitVersion calculates next version in continuous deployment mode (version changes every commit)
-2) Each CI build is available to Octopus deploy
-3) Build is released in Octopus Deploy
+1. GitVersion calculates next version in continuous deployment mode (version changes every commit)
+2. Each CI build is available to Octopus deploy
+3. Build is released in Octopus Deploy
    - I have not used OCtopus in quite a while, will need help with where release notes and such fit in
 
 ### Particular workflow
@@ -38,17 +38,17 @@ Chocolatey has been a long time user and contributor to GitVersion, picking up e
 ## Short term plan (implementation specific)
 This is just a braindump of what could happen, i want to start a discussion to get some actionable items 
 
-1) GitReleaseNotes should start using the SemanticReleaseNotesParser for parsing from/writing to the semantic release notes
-2) GitReleaseNotes should be available as a library, the library should be rather simple with the following responsibilities:
+1. GitReleaseNotes should start using the SemanticReleaseNotesParser for parsing from/writing to the semantic release notes
+2. GitReleaseNotes should be available as a library, the library should be rather simple with the following responsibilities:
    - It can take timestamped issues from a pluggable source
    - be able to sort/group those issues into a semantic release notes model provided by SemanticReleaseNotesParser
    - Update an existing model with the new issues (append)
    - Be able to write to a pluggable output
-3) Either the different input/output sources could be included in core, or kept as separate projects? Separate initially would allow tools like GitHubReleaseManager to include some from GitReleaseNotes and also provide it's own input/output sources
-4) GitHubReleaseManager and GithubReleaseCreator could probably merge?
-5) GitHubReleaseManager could start using the core of GitReleaseNotes, but make many more assumptions and streamline things because it just works with GitHub
-6) Same with JiraCli, it could use the core of GitReleaseNotes
-7) Start creating plugins/metadata runners etc to make it easier to set all this stuff up in various build servers
+3. Either the different input/output sources could be included in core, or kept as separate projects? Separate initially would allow tools like GitHubReleaseManager to include some from GitReleaseNotes and also provide it's own input/output sources
+4. GitHubReleaseManager and GithubReleaseCreator could probably merge?
+5. GitHubReleaseManager could start using the core of GitReleaseNotes, but make many more assumptions and streamline things because it just works with GitHub
+6. Same with JiraCli, it could use the core of GitReleaseNotes
+7. Start creating plugins/metadata runners etc to make it easier to set all this stuff up in various build servers
 
 ## Questions
  - Is one single release tool a good long term goal? With Jira/Youtrack/Tfs/BitBucket/GitHub etc support as a source, and also have support for releasing to any of them or would a shared core and a bunch of separate tools which work with just one of those issue trackers be better?
