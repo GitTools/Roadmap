@@ -90,15 +90,13 @@ Running GitTools.exe -Publish would run against the second config file, and simp
 
 Propose using yaml for the config file format.
 
-Propose that in the config file, can use Tokens to represent arguments that are passed in via GitTools.exe. For example:
+Propose that in the config file, can use Tokens to represent arguments that are passed in via GitTools.exe. For example, with this config:
 
-For example, with this config:-
-
-'''
+```
 UpdateRelease: { Platform: GitHub, Tag: "%tag%", Status: Published }
-'''
+```
 
-You would have to have specified a -tag argument when calling GitTools.exe:-
+You would have to have specified a -tag argument when calling GitTools.exe:
 
 ```
 GitTools.exe -tag "v1.2.3"
@@ -113,5 +111,5 @@ Unclear which (if any) of the following tools belong in the command line -
 
 Different Plugins (Issue trackers etc) have different arguments. 
 A mechanism would be needed to surface plugin specific command line arguments / options via GitTools.exe.
-
+For example, if a valid MsExcelIssueTracker plugin dll was dropped in the bin directory, GitTools.exe ? should be able to list the arguments required by that plugin for example -MsExcelFile "some file.xls"
 
