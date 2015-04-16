@@ -3,20 +3,7 @@ The GitTools org hopefully will contain a bunch of projects which all are aimed 
 Because most of the tools are written in .NET we are limited to windows, it would be great to get nodejs ports and open these tools/processes up to other ecosystems and operating systems. MONO could be an option if we git libgit2sharp running on mono easily.
 
 ## Current projects
- * [Semantic Release Notes](https://github.com/Glimpse/Semantic-Release-Notes) - Structured Markdown format for release notes which can be parsed into a json object structure to be output in many formats
- * [GitVersion](https://github.com/ParticularLabs/GitVersion) - Calculates the SemVer based on your git history
- * [GitReleaseNotes](https://github.com/GitTools/GitReleaseNotes) - Simple exe which connects to GitHub, Bitbucket, Jira and creates a markdown file of closed issues grouped by releases (based on git tags/timestamp of the tag)
-     * [GitReleaseNotes.Web](https://github.com/GitTools/GitReleaseNotes/tree/master/src/GitReleaseNotes.Website) - A web version of GitReleaseNotes, exposing a webpage and http endpoint to generate release notes for your application. 
- * [GitHubReleaseCreator](https://github.com/dazinator/GithubReleaseCreator) - Command line tool to create GitHub releases/upload artifacts/tag etc
- * [GitHubReleaseNotes](https://github.com/Particular/GitHubReleaseNotes) - Particular's release notes generator, is open source but has been built to match the particular release workflow. It will likely stay this way.
- * [GitHubReleaseManager](https://github.com/gep13/GitHubReleaseManager) - A fork of GitHubReleaseNotes with a lot more configuration options. It is tied to GitHub milestones and github releases. 
- * [JiraCLI](https://github.com/CatenaLogic/JiraCli) - Manages releases to Jira
- * [SemanticReleaseNotesParser](https://github.com/laedit/SemanticReleaseNotesParser) - A generic parser/writer for the semantic release notes format
- * [APIComparer](https://github.com/ParticularLabs/APIComparer) - Website/console app which generate a public API changelog for each version
- * [ApiApprover](https://github.com/JakeGinnivan/ApiApprover) - Extension to ApprovalTests to create a unit tests which will require approval to any changes to the public API, designed to catch breaking API changes asap
- * [GitLink](https://github.com/GitTools/GitLink) - Sets the symbols for a release to point at GitHub to make it easy to debug the source of any open source project
-
-As you can see there are a heap of great projects with a lot of overlap
+[See list in the wiki](https://github.com/GitTools/Roadmap/wiki/Tools-for-Consolidation)
 
 ## Workflows
 This really is only the versioning/release notes part and how the release is orchestrated. The API changes are not included in here at the moment
