@@ -43,7 +43,7 @@ We could implement the following as plugins for GitTools.exe:
 
 ## Build / CI Workflows
 
-So far there are a few different build workflows surfacing, involving similar functions:-
+So far there are a few different build workflows surfacing, all involving similar functionality:-
 
 1. Calculate SemVer Version Numbers (must happen at start of a build)
     * Expose SemVer version Numbers to CI / Build system / MSBuild Variables etc
@@ -58,45 +58,51 @@ So far there are a few different build workflows surfacing, involving similar fu
     * adding / removing release artifacts
     * modifying the release status (draft / published etc)
     
-Number 1 seems like something GitTools.exe should just do based on a boolean command line param or boolean setting in a config file.
+Number 1 seems like something GitTools.exe should just do whever its invoked (based on a boolean command line param or boolean setting in a config file or something).
 
-For the rest of the above, it seems likely that a typical user may want many, different build configurations for the same repo - i.e CI, Release, Publish etc (possibly using chaining in team city for example) - where each build configuration could have different combinations of the above functions.
+It seems likely that the user may want many, different build configurations for the same repo - i.e:
 
-This basically means that GitTools.exe needs to do one or both of these:
+* CI
+* Release
+* Publish
 
-1. Needs to expose individual commands for each of the above, so that users can call it multiple times to perform just the function necessary during their build. 
-2. Needs to expose a single command that takes an argument pointing to a config file - where there would be a different config per build configuration. Based on this config for example, it would decide which steps above (if any) it would execute.
+Each build configuration would may require GitVersion to perform different combinations of the above functions.
 
-For example 'Release.config'
+This basically means that GitTools.exe needs to either (or both):
+
+1. Expose individual commands ina granular way, so that users can call GitTools.exe multiple times as part of their builds, each time just performing the function necessary.
+2. Expose a config mechanism. Invoke GitTools.exe passing an argument specifying a config file to use. You could then have different config files per build configuration. GitTools.exe would then interpret the config file, and decide what needs to be run.
+
+Example 'Release.config'
 '''
 UseSemVer: true
 CreateReleaseNotes: { File: ReleaseNotes.md, IssueTracker: Jira }
 CreateRelease: { DescriptionFile: ReleaseNotes.md, Platform: GitHub, Artifacts: Installer.msi, NuGetPackage.nupkg, Status: Pre-Release }
-
 '''
-Then 'Publish.config'
+
+Example 'Publish.config'
 '''
 UpdateRelease: { Platform: GitHub, Tag: "%some build variable here%", Status: Published }
-
 '''
 
-Running GitTools.exe -Release would run against the first config file, and create release notes, and create a release in one go.
-Running GitTools.exe -Publish would run against the second config file, and simply update the existing release with the given tag.
+Running GitTools.exe -Release would run against the first config file, which would executr GitVersion, and Release notes funcitonality - and would also Create a release on GitHub (assuming the GitHub plugin was available at runtime).
+Running GitTools.exe -Publish would run against the second config file, and simply update the existing release on GitHub that has the specified tag.
 
 Propose using yaml for the config file format.
 
-Propose that in the config file, can use Tokens for arguments passed in via GitTools.exe.
+Propose that in the config file, can use Tokens to represent arguments that are passed in via GitTools.exe. For example:
 
-For example this config:-
+For example, with this config:-
 
 '''
 UpdateRelease: { Platform: GitHub, Tag: "%tag%", Status: Published }
-
 '''
 
-GitTools.exe would expect to be called with a -tag argument specifying the tagname for the release to be updated.
+You would have to have specified a -tag argument when calling GitTools.exe:-
 
-  
+```
+GitTools.exe -tag "v1.2.3"
+```
 # Comments
 
 Unclear which (if any) of the following tools belong in the command line -
@@ -106,10 +112,6 @@ Unclear which (if any) of the following tools belong in the command line -
 * APIApprover
 
 Different Plugins (Issue trackers etc) have different arguments. 
-We need some mechanism to surface their particular command line arguments / options via GitTools.exe.
-This would require basically an extensible command line architecture - could be a little tricky. 
-For example, the BitBucket releases plugin may require additional / different command line arguments than say, the Github releases plugin.
-This wouldn't be too tricky to resolve, should just be routing / delegating the command arguments to the appropriate plugin for validation of the arguments.
-
+A mechanism would be needed to surface plugin specific command line arguments / options via GitTools.exe.
 
 
