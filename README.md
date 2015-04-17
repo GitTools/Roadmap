@@ -1,9 +1,12 @@
 # Roadmap
-The GitTools org hopefully will contain a bunch of projects which all are aimed at making it easy to version and release your software.  
-Because most of the tools are written in .NET we are limited to windows, it would be great to get nodejs ports and open these tools/processes up to other ecosystems and operating systems. MONO could be an option if we git libgit2sharp running on mono easily.
+First a bit of history. Particular (Simon Cropp and Andreas Öhlund) myself (Jake Ginnivan) were wanting to automate semantic version number calculation. The plan was we would build two tools GitHubFlowVersion (Jake) and GitFlowVersion (Particular). After both of these tools were working we brought them together, taking things that worked and removing things which didn't. GitVersion was the result. v3 is now configuration driven and seems to solve most of the needs of the community so it is time to start working on the next problem. Release notes and other release related things.
 
-## Current projects
-[See list in the wiki](https://github.com/GitTools/Roadmap/wiki/Tools-for-Consolidation)
+The glimpse guys came up with semanticreleasenotes.org a while back, and it seems that is a good release note format to standardise on. Around this space there are a bunch of open source tools (see 
+[See list in the wiki](https://github.com/GitTools/Roadmap/wiki/Tools-for-Consolidation)), this repo is trying to come up with a plan as a group on where we should take all these tools and try and combine the effort to create something which works for all of us.
+
+The basic idea is these tools should help support this workflow:
+
+Version -> Build -> Release (including good release notes, optionally API change list and debug symbols pointing at github).
 
 ## Workflows
 This really is only the versioning/release notes part and how the release is orchestrated. The API changes are not included in here at the moment
